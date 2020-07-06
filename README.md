@@ -8,7 +8,7 @@
 
 注意要选择Python2、GPU、EVS的配置
 
-![1562657267427](../demo_docs/images/create_notebook.png)
+![1562657267427](./images/create_notebook.png)
 
 ### 1.2 从obs下载caffe代码
 
@@ -18,7 +18,7 @@
 
 （1）新建ipynb文件
 
-![1562721244236](../demo_docs/images/notebook.png)
+![1562721244236](./images/notebook.png)
 
 （2）执行以下下载命令
 
@@ -31,7 +31,7 @@ mox.file.copy_parallel('s3://modelarts-competitions/unmanned_vehicle/caffe_demo/
 
 如下图所示：
 
-![1562721190194](../demo_docs/images/copy_caffe.png)
+![1562721190194](./images/copy_caffe.png)
 
 
 
@@ -41,7 +41,7 @@ mox.file.copy_parallel('s3://modelarts-competitions/unmanned_vehicle/caffe_demo/
 
 #### 1.3.1 新建Terminal
 
-![1562721266856](../demo_docs/images/create_terminal.png)
+![1562721266856](./images/create_terminal.png)
 
 进入caffe目录：
 
@@ -220,7 +220,7 @@ make distribute  # 如果没有特殊的提示信息，则表示编译成功
 
 测试通过的示意图：
 
-![1562660175712](../demo_docs/images/test.png)
+![1562660175712](./images/test.png)
 
 
 
@@ -244,15 +244,15 @@ make distribute  # 如果没有特殊的提示信息，则表示编译成功
 
 其中“数据集输入位置”选择刚才上传的OBS路径，“数据集输出位置”可以自己选一个位置即可，其他选项参考下图进行设置
 
-![1562915436895](../demo_docs/images/create_dataset.png)
+![1562915436895](./images/create_dataset.png)
 
 标注过程如下：
 
-![1562915506147](../demo_docs/images/annotation.png)
+![1562915506147](./images/annotation.png)
 
 标注结束后，按照下图点击“发布”：
 
-![1562915681647](../demo_docs/images/1562915681647.png)
+![1562915681647](./images/1562915681647.png)
 
 点击发布后，才会在OBS上的“数据集输出位置”生成新版本的标注文件，有好几级目录，一级一级点进去，会看到一个V001的目录，里面就是最终的xml标签文件。
 
@@ -639,7 +639,7 @@ mox.file.copy('/home/ma-user/work/caffe/data/VOC0712/test_name_size.txt',
 
 上传完成后的截图如下所示，总共7个文件和2个文件夹：
 
-![1562722870454](../demo_docs/images/dataset.png)
+![1562722870454](./images/dataset.png)
 
 
 
@@ -665,17 +665,17 @@ mox.file.copy('/home/ma-user/work/caffe/data/VOC0712/train_ssd.py',
 
 其中，“训练脚本目录”为上文提到的src目录，“训练脚本”为src目录下的train_ssd.py
 
-![1562723386558](../demo_docs/images/train.png)
+![1562723386558](./images/train.png)
 
 ### 2.5 查看训练日志
 
-![1562723949569](../demo_docs/images/log.png)
+![1562723949569](./images/log.png)
 
 如果看到上图中的Iteration和loss，则表示训练正在进行。
 
 如果看到上图中的“Snapshotting ... /cache/train_url/xxx.xxx”则表示训练模型已保存到本地的/cache/train_url路径。
 
-![1562723949569](../demo_docs/images/log2.png)
+![1562723949569](./images/log2.png)
 
 如果看到上图中的“copy models from /cache/train_url to s3://xxx success”，则表示已经成功将本地/cache/train_url保存的模型拷贝到了OBS路径。**<u>注意，一定要看到这一步输出才表示你的训练成功了！</u>**
 
@@ -750,7 +750,7 @@ for i in range(5):
 
 首先，准备以下三个文件：
 
-![1562900531619](../demo_docs/images/convert_model.png)
+![1562900531619](./images/convert_model.png)
 
 在本地创建aipp.cfg，粘贴如下内容保存，在OBS上新建convert_model目录，将其上传到该目录：
 
@@ -793,23 +793,23 @@ mox.file.copy('/home/ma-user/work/caffe/data/VOC0712/model_snpashots_OBS/你的�
 
 deploy.prototxt需做如下修改，在上传到s3://你的OBS路径/convert_model/目录下
 
-![1562904157843](../demo_docs/images/1562904157843.png)
+![1562904157843](./images/1562904157843.png)
 
 注：SSDDetectionOutput为昇腾310芯片支持的算子。
 
 将文件上传至obs后，进入Hilens的console页面：
 
-![1562900852439](../demo_docs/images/hilens.png)
+![1562900852439](./images/hilens.png)
 
 创建转换任务：
 
-![1562901047291](../demo_docs/images/create_transfer.png)
+![1562901047291](./images/create_transfer.png)
 
 转换结果：
 
-![1562901685654](../demo_docs/images/trans-result1.png)
+![1562901685654](./images/trans-result1.png)
 
-![1562901776038](../demo_docs/images/trans_result2.png)
+![1562901776038](./images/trans_result2.png)
 
 完成。
 
@@ -817,11 +817,11 @@ deploy.prototxt需做如下修改，在上传到s3://你的OBS路径/convert_mod
 
 （1） 如需使用OBS路径，推荐从[OBS browser](https://support.huaweicloud.com/clientogw-obs/zh-cn_topic_0045829056.html)的地址栏进行复制，如下图所示，并且要把地址最前面的“obs://”改成“s3://”，如果是手动输入路径，推荐按照’s3://{桶名}/{绝对路径}’的格式填写，路径中不要含有‘./’和’../’的相对路径，也不要含有多余的斜杠“/”；
 
-![obs_browser](../demo_docs/images/obs_browser.png)
+![obs_browser](./images/obs_browser.png)
 
 （2） 创建的notebook默认只有5G的EVS存储空间，很容易用完，请注意及时清理不需要的文件，使用’df –h’命令可查看存储空间的使用情况，如下图所示，空间总大小为4.8G、已用20M、可用4.6G。当然您也可以创建大于5G的EVS notebook，超过5G的部分会收费；
 
-![df-h](../demo_docs/images/df-h.png)
+![df-h](./images/df-h.png)
 
 （3） notebook中点击删除按钮删除的东西，仍然会保存在/home/ma-user/work/.Trash-1000中，类似于windows中回收站的作用，如果/home/ma-user/work存储空间不足，在notebook terminal中使用如下命令清空/.Trash-1000目录；
 
